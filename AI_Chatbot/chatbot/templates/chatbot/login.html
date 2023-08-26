@@ -1,0 +1,73 @@
+{% extends "chatbot/base.html" %}
+{% block styles %}
+<style>
+  body {
+    background-color: #f5f5f5;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-container {
+    width: 450px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="container login-container">
+    {% if messages %}
+    {% for message in messages %}
+    <div
+      class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show mt-3"
+      role="alert">
+      <i
+        class="{% if message.tags == 'error' %}fas fa-exclamation-circle{% elif message.tags == 'success' %}fas fa-check-circle{% elif message.tags == 'info' %}fas fa-info-circle{% elif message.tags == 'warning' %}fas fa-exclamation-triangle{% else %}fas fa-bell{% endif %} me-2"></i>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <h2 class="text-center mb-4">Login</h2>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+      </div>
+      <div class="form-group form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" name="remember"> Remember me
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+    <div class="mt-3 text-center">
+      <span>Need an account? </span><a href="{% url 'register' %}" class="text-info">Sign up now</a>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $(".toggle-password").click(function () {
+      let input = $($(this).attr("toggle"));
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+      } else {
+        input.attr("type", "password");
+        $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+      }
+    });
+  });
+</script>
+{% endblock %}
