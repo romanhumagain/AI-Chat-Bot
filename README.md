@@ -23,7 +23,7 @@
 
 <ol>
 <li>Clone this repository:</li>
-<pre><code>git clone &lt;repository-link&gt;</code></pre>
+<pre><code>git clone &lt;https://github.com/romanhumagain/AI-Chat-Bot&gt;</code></pre>
 
 <li>Navigate to the project directory:</li>
 <pre><code>cd path-to-project</code></pre>
